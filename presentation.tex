@@ -28,7 +28,7 @@
         A vector is an array of $n$ numbers. \\
         Let $S$ be a field. We write $S^n$ as the set of all vectors with $n$ entries in $S$.
         \begin{example}
-            For example, $\mathbb{R}^n$, $\mathbb{C}^n$  are the sets of vectors of $n$,respectively, real and complex numbers. \\
+            For example, $\mathbb{R}^n$, $\mathbb{C}^n$  are the sets of vectors of $n$, respectively, real and complex numbers. \\
             Here are a couple of vectors:
             \begin{align}
                 \begin{bmatrix}
@@ -350,7 +350,7 @@
     \end{frame}
     \begin{frame}
         \frametitle{Kronecker product}
-        In order to make this more concrete, we define the Kronecker product for tensoring two matrixes (vec) together.
+        In order to make this more concrete, we define the Kronecker product for tensoring two matrices (vec) together.
         Let $A$ be a $m \times n$ matrix, and $B$ be a $p \times q$ matrix. Then
         \begin{align}
             A \otimes B &= \begin{pmatrix}
@@ -463,7 +463,7 @@
                 \label{shroedinger}
                 i \hbar \diff{\ket{\psi}}{t} = H \ket{\psi}
             \end{equation}
-            Where $\hbar$ is the reduced Plank Constant, and $H$ is an Hermitian operator which needs to 
+            Where $\hbar$ is the reduced Planck Constant, and $H$ is an Hermitian operator which needs to 
             be figured out for the system in question.
         \end{definition}
         Sometime it is useful that, if $H$ is independent from time, and we know the state $\ket{\psi_0}$ at $t = 0$
@@ -716,7 +716,7 @@
         \end{frame}
         \begin{frame}
             \frametitle{Controlled Operations}
-            A really interesting king of operation are the controlled operation. These are operations 
+            A really interesting kind of operation are the controlled operation. These are operations 
             on multiple bit such that the first bit is used as a control. If it is not set nothing happens.
             Else some operation is applied. For any Unitary $U$ we define the controlled-$U$ operation as:
             \begin{center}
@@ -832,7 +832,9 @@
             \end{itemize}
             We show quantum circuits for the first two. Also, we stress that 
             we have no efficient Quantum algorithm for $\mathcal{NP}$-complete problems. 
-            As such, we believe (no proof) that $\mathcal{P} \subseteq \mathcal{BPP} \subseteq \mathcal{BQP} \subseteq{NP}$
+            As such, we believe (no proof) that $\mathcal{P} \subseteq \mathcal{BPP} \subseteq \mathcal{BQP} \subseteq \mathcal{NP}$ \footnote{
+                Actually, a recent paper (https://www.quantum-bits.org/?p=2309) seem to suggest that $\mathcal{BQP} / \mathcal{NP} \neq \emptyset $
+            }
         
         \end{frame}
         \begin{frame}
@@ -871,7 +873,7 @@
         \begin{frame}
             \frametitle{Quantum Fourier Transform}
             The Discrete Fourier Transform is an operation that has many applications in a variety of problems.
-            Classically, it transforms a set of numbers $x_0, \dots, x_{N-1}$ into:
+            Classically\footnote{Good visual intro https://www.youtube.com/watch?v=spUNpyF58BY}, it transforms a set of numbers $x_0, \dots, x_{N-1}$ into:
             \begin{equation}
                 y_k \equiv \frac{1}{\sqrt{N}} \sum_{j=0}^{N - 1} e^{2\pi i j k / N} x_j
             \end{equation}
@@ -948,7 +950,7 @@
                 \item Noise
                 \item Quantum information
                 \item Quantum cryptography
-                \item Graph isomorphism?
+                \item Graph isomorphism?\footnote{Might be solved, paper is 2019 but not published yet afaik https://arxiv.org/abs/1901.06530}
             \end{itemize}
         \end{frame}
         \begin{frame}
