@@ -14,963 +14,961 @@
 \institute{University of St. Andrews}
 \date{\today}
 \begin{document}
-    \begin{frame}
-        \titlepage
-    \end{frame}
-    \begin{frame}
-        \frametitle{Outline}
-        \tableofcontents
-    \end{frame}
-    \section{Mathematics}
-    \subsection{Vector Spaces}
-    \begin{frame}
-        \frametitle{Vectors}
-        A vector is an array of $n$ numbers. \\
-        Let $S$ be a field. We write $S^n$ as the set of all vectors with $n$ entries in $S$.
-        \begin{example}
-            For example, $\mathbb{R}^n$, $\mathbb{C}^n$  are the sets of vectors of $n$, respectively, real and complex numbers. \\
-            Here are a couple of vectors:
-            \begin{align}
-                \begin{bmatrix}
-                       1 \\
-                       2 \\
-                       3
-                \end{bmatrix} &\in \mathbb{R}^3, 
-                \begin{bmatrix}
-                    1 + i \\
-                    1 - i 
-             \end{bmatrix} \in \mathbb{C}^2, 
-              \end{align}
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Notation}
-        \begin{itemize}
-            \item In school often vectors are denoted as $\boldsymbol{v}$ or $\vec{v}$.
-            \item In Quantum mechamics we use Dirac notation: $\ket{v}$
-            \item This just means the vector named $v$. 
-        \end{itemize}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Operation}
-        Vectors are characterized by two operations on their values:
-        \begin{itemize}
-            \item Addition: given two vectors $\ket{a}, \ket{b}$, then $\ket{a} + \ket{b}$ is also a vector, defined by summing pointwise the components of the two.
-            \item Scalar multiplication: given a vector $\ket{a}$ and a scalar $\alpha$, then $\alpha \ket{a}$ is a vector, defined by multiplying each component of $\ket{a}$ by $\alpha$. 
-        \end{itemize}
-        \begin{example}
-            Let: 
-            \begin{align}
-                \ket{a} &= \begin{bmatrix}
-                       1 \\
-                       2
-                \end{bmatrix}, 
-                \ket{b} = \begin{bmatrix}
-                    3 \\
-                    4 
-             \end{bmatrix} 
-              \end{align}
-              Then:
-              \begin{align}
-                2\ket{a} + \ket{b} &= \begin{bmatrix}
-                       5 \\
-                       8
-                \end{bmatrix}, 
-              \end{align}
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Vector Spaces and Basis}
-        A set like $\mathbb{R}^n, \mathbb{C}^n$ is called\footnote{Pedantically, it's the other way around, we first define vectors spaces and prove the two are one} a \textit{vector space}
-        In particular, each vector space $V$ contains some set of vectors called a basis for the space, which we denote $\ket{0}, \ket{1}, \dots, \ket{n - 1}$ such that:
-        \begin{itemize}
-            \item For every $\ket{v} \in V$, there exist $\alpha_i$ such that: \[ \ket{v} = \sum_i \alpha_i \ket{i}  \]
-            \item \[ \sum_i \alpha_i \ket{i} = 0 \] iff $\alpha_i = 0$.
-        \end{itemize}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Basis Examples}
-        \begin{example}
-            Consider the vector space $\mathbb{R}^2$. This is the so called standard basis:
-            \begin{align}
-                \ket{0} &= \begin{pmatrix}
-                    1 \\
-                    0
-                \end{pmatrix}, \ket{1} = \begin{pmatrix}
-                    0 \\
-                    1
-                \end{pmatrix}
-            \end{align}
-            Also, the following is an interesting basis we will ecounter:
-            \begin{align}
-                \ket{+} &= \frac{1}{\sqrt{2}} \begin{pmatrix}
-                    1 \\
-                    1
-                \end{pmatrix}, \ket{-} = \frac{1}{\sqrt{2}} \begin{pmatrix}
-                    1 \\
-                    -1
-                \end{pmatrix}
-            \end{align}
-            The proof is quite simple, I suggest first showing the standard basis is one, and then note that:
-            \[ \ket{0} = \frac{\ket{+} + \ket{-}}{\sqrt{2}}, \ket{1} = \frac{\ket{+} - \ket{-}}{\sqrt{2}} \]
-        \end{example}
-    \end{frame}
-    \subsection{Linear operators}
-    \begin{frame}
-        \frametitle{Linear Transformation}
-        A linear transformation between two vectors spaces is a function $T: V \to W$ such that, for $\ket{a}, \ket{b} \in V$, and scalar $\alpha$
-        \begin{itemize}
-            \item $T(\ket{a} + \ket{b}) = T\ket{a} + T\ket{b}$
-            \item $T(\alpha\ket{a})  = \alpha T\ket{a}$
-        \end{itemize}
-        Since every vector in $V$ can be written as a sum of scaled basis vectors it follows:
-        \[ T\ket{v} = \sum_i \alpha_i T\ket{i}  \] 
-        And a linear transformation can be uniquely determined by its action on the bases. \\
-        Also, if $V = W$, we call $T: V \to V$ a \textit{linear operator} on $V$.
-    \end{frame}
-    \begin{frame}
-        \frametitle{Matrix}
-        Encoding this operation, we can write a linear transformation as a matrix (and viceversa).
-        \begin{example}
-            Consider the following linear operator $T$ on $\mathbb{C}^2$:
-            \begin{align}
-                T\ket{0} &= \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) \\
-                T\ket{1} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})
-            \end{align}
-            Then the corresponding matrix is the useful \textit{Hadamard Gate} 
-            \begin{equation}
-                \label{Hadamard}
-                H = \frac{1}{\sqrt{2}}
-                    \begin{bmatrix}
-                        1 & 1 \\
-                        1 & -1 
-                    \end{bmatrix}
-            \end{equation}
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Pauli Matrices}
-        \begin{example}
-            The following matrices are of particular importance, and $X, Y, Z$ are called the Pauli Matrices.
-            \begin{align}
-                \label{Pauli}
-                I &= 
-                \begin{bmatrix}
-                    1 & 0 \\
-                    0 & 1 
-                \end{bmatrix}, \qquad 
-                X = \begin{bmatrix}
-                    0 & 1 \\
-                    1 & 0 
-                \end{bmatrix} \\
-                Y &= 
-                \begin{bmatrix}
-                    0 & -i \\
-                    i & 0 
-                \end{bmatrix}, \qquad
-                Z = \begin{bmatrix}
-                    1 & 0 \\
-                    0 & -1 
-                \end{bmatrix}
-            \end{align}
-        \end{example}
-    \end{frame}
-    \subsection{Hilbert Spaces}
-    \begin{frame}
-        \frametitle{Inner Product}
-        The inner product is a generalization of the dot product to complex vectors in $\mathbb{C}^n$.
-        We write $\braket{v|w}$ for the inner product of $\ket{v}, \ket{w}$.
-        It has the properties that:
-        \begin{itemize}
-            \item $(\braket{v|w})^* = \braket{w|v}$, where $\cdot^*$ is the complex conjugate.
-            \item $\braket{v|v} \geq 0$. We define also $||\ket{v}|| \equiv \sqrt{\braket{v|v}}$
-            \item If $\ket{w} = \sum_i \alpha_i \ket{w_i}$, then $\braket{v|w} = \sum_i \alpha_i \braket{v | w_i}$
-        \end{itemize}
-        We define an Hilbert space to be a vector space with such inner product.
-        In $\mathbb{C}^n$ we define that if:
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+\section{Mathematics}
+\subsection{Vector Spaces}
+\begin{frame}
+    \frametitle{Vectors}
+    A vector is an array of $n$ numbers. \\
+    Let $S$ be a field. We write $S^n$ as the set of all vectors with $n$ entries in $S$.
+    \begin{example}
+        For example, $\mathbb{R}^n$, $\mathbb{C}^n$  are the sets of vectors of $n$, respectively, real and complex numbers. \\
+        Here are a couple of vectors:
         \begin{align}
-            \ket{v} &= \begin{pmatrix}
-                v_1 \\
-                \vdots \\
-                v_n
-            \end{pmatrix},
-            \ket{w} = \begin{pmatrix}
-                w_1 \\
-                \vdots \\
-                w_n
-            \end{pmatrix} \implies
-            \braket{v|w} = \sum_i v_i^* w_n = (v_1^* \dots v_n^*)\begin{pmatrix}
-                w_1 \\
-                \vdots \\
-                w_n
-            \end{pmatrix} 
+            \begin{pmatrix}
+                1 \\
+                2 \\
+                3
+            \end{pmatrix} & \in \mathbb{R}^3,
+            \begin{pmatrix}
+                1 + i \\
+                1 - i
+            \end{pmatrix} \in \mathbb{C}^2,
         \end{align}
-        Also, if $|| \ket{\psi} || = 1$, we say that $\ket{\psi}$ is a unit vector.
-    \end{frame}
-    \begin{frame}
-        \frametitle{Inner Products}
-        \begin{example}
-            Consider the following (all in $\mathbb{C}^2$):
-            \begin{align}
-                \ket{a} &= \begin{pmatrix}
-                    1 + i \\
-                    2
-                \end{pmatrix},
-                 \ket{b} = \begin{pmatrix}
-                    2 \\ 
-                    3
-                \end{pmatrix}
-            \end{align}
-            And $\ket{0}, \ket{1}, \ket{+}, \ket{-}$ as defined before.
-            Then:
-        \begin{equation} \braket{0|1} = \braket{+| -} = 0 \end{equation} 
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Notation}
+    \begin{itemize}
+        \item In school often vectors are denoted as $\boldsymbol{v}$ or $\vec{v}$.
+        \item In Quantum mechanics we use Dirac notation: $\ket{v}$
+        \item This just means the vector named $v$.
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Operation}
+    Vectors are characterized by two operations on their values:
+    \begin{itemize}
+        \item Addition: given two vectors $\ket{a}, \ket{b}$, then $\ket{a} + \ket{b}$ is also a vector, defined by summing pointwise the components of the two.
+        \item Scalar multiplication: given a vector $\ket{a}$ and a scalar $\alpha$, then $\alpha \ket{a}$ is a vector, defined by multiplying each component of $\ket{a}$ by $\alpha$.
+    \end{itemize}
+    \begin{example}
+        Let:
+        \begin{align}
+            \ket{a} & = \begin{pmatrix}
+                1 \\
+                2
+            \end{pmatrix},
+            \ket{b} = \begin{pmatrix}
+                3 \\
+                4
+            \end{pmatrix}
+        \end{align}
+        Then:
+        \begin{align}
+            2\ket{a} + \ket{b} & = \begin{pmatrix}
+                5 \\
+                8
+            \end{pmatrix},
+        \end{align}
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Vector Spaces and Basis}
+    A set like $\mathbb{R}^n, \mathbb{C}^n$ is called\footnote{Pedantically, it's the other way around, we first define vectors spaces and prove the two are one} a \textit{vector space}
+    In particular, each vector space $V$ contains some set of vectors called a basis for the space, which we denote $\ket{0}, \ket{1}, \dots, \ket{n - 1}$ such that:
+    \begin{itemize}
+        \item For every $\ket{v} \in V$, there exist $\alpha_i$ such that: \[ \ket{v} = \sum_i \alpha_i \ket{i}  \]
+        \item \[ \sum_i \alpha_i \ket{i} = 0 \] iff $\alpha_i = 0$.
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Basis Examples}
+    \begin{example}
+        Consider the vector space $\mathbb{R}^2$. This is the so called standard basis:
+        \begin{align}
+            \ket{0} & = \begin{pmatrix}
+                1 \\
+            \end{pmatrix}, \ket{1} = \begin{pmatrix}
+                0 \\
+                1
+            \end{pmatrix}
+        \end{align}
+        Also, the following is an interesting basis we will encounter:
+        \begin{align}
+            \ket{+} & = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 \\
+                1
+            \end{pmatrix}, \ket{-} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 \\
+                -1
+            \end{pmatrix}
+        \end{align}
+        The proof is quite simple, I suggest first showing the standard basis is one, and then note that:
+        \[ \ket{0} = \frac{\ket{+} + \ket{-}}{\sqrt{2}}, \ket{1} = \frac{\ket{+} - \ket{-}}{\sqrt{2}} \]
+    \end{example}
+\end{frame}
+\subsection{Linear operators}
+\begin{frame}
+    \frametitle{Linear Transformation}
+    A linear transformation between two vectors spaces is a function $T: V \to W$ such that, for $\ket{a}, \ket{b} \in V$, and scalar $\alpha$
+    \begin{itemize}
+        \item $T(\ket{a} + \ket{b}) = T\ket{a} + T\ket{b}$
+        \item $T(\alpha\ket{a})  = \alpha T\ket{a}$
+    \end{itemize}
+    Since every vector in $V$ can be written as a sum of scaled basis vectors it follows:
+    \[ T\ket{v} = \sum_i \alpha_i T\ket{i}  \]
+    And a linear transformation can be uniquely determined by its action on the bases. \\
+    Also, if $V = W$, we call $T: V \to V$ a \textit{linear operator} on $V$.
+\end{frame}
+\begin{frame}
+    \frametitle{Matrix}
+    Encoding this operation, we can write a linear transformation as a matrix (and viceversa).
+    \begin{example}
+        Consider the following linear operator $T$ on $\mathbb{C}^2$:
+        \begin{align}
+            T\ket{0} & = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) \\
+            T\ket{1} & = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})
+        \end{align}
+        Then the corresponding matrix is the useful \textit{Hadamard Gate}
+        \begin{equation}
+            \label{Hadamard}
+            H = \frac{1}{\sqrt{2}}
+            \begin{bmatrix}
+                1 & 1  \\
+                1 & -1
+            \end{bmatrix}
+        \end{equation}
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Pauli Matrices}
+    \begin{example}
+        The following matrices are of particular importance, and $X, Y, Z$ are called the Pauli Matrices.
+        \begin{align}
+            \label{Pauli}
+            I & =
+            \begin{bmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{bmatrix}, \qquad
+            X = \begin{bmatrix}
+                0 & 1 \\
+                1 & 0
+            \end{bmatrix} \\
+            Y & =
+            \begin{bmatrix}
+                0 & -i \\
+                i & 0
+            \end{bmatrix}, \qquad
+            Z = \begin{bmatrix}
+                1 & 0  \\
+                0 & -1
+            \end{bmatrix}
+        \end{align}
+    \end{example}
+\end{frame}
+\subsection{Hilbert Spaces}
+\begin{frame}
+    \frametitle{Inner Product}
+    The inner product is a generalization of the dot product to complex vectors in $\mathbb{C}^n$.
+    We write $\braket{v|w}$ for the inner product of $\ket{v}, \ket{w}$.
+    It has the properties that:
+    \begin{itemize}
+        \item $(\braket{v|w})^* = \braket{w|v}$, where $\cdot^*$ is the complex conjugate.
+        \item $\braket{v|v} \geq 0$. We define also $||\ket{v}|| \equiv \sqrt{\braket{v|v}}$
+        \item If $\ket{w} = \sum_i \alpha_i \ket{w_i}$, then $\braket{v|w} = \sum_i \alpha_i \braket{v | w_i}$
+    \end{itemize}
+    We define an Hilbert space to be a vector space with such inner product.
+    In $\mathbb{C}^n$ we define that if:
+    \begin{align}
+        \ket{v} & = \begin{pmatrix}
+            v_1    \\
+            \vdots \\
+            v_n
+        \end{pmatrix},
+        \ket{w} = \begin{pmatrix}
+            w_1    \\
+            \vdots \\
+            w_n
+        \end{pmatrix} \implies
+        \braket{v|w} = \sum_i v_i^* w_n = (v_1^* \dots v_n^*)\begin{pmatrix}
+            w_1    \\
+            \vdots \\
+            w_n
+        \end{pmatrix}
+    \end{align}
+    Also, if $|| \ket{\psi} || = 1$, we say that $\ket{\psi}$ is a unit vector.
+\end{frame}
+\begin{frame}
+    \frametitle{Inner Products}
+    \begin{example}
+        Consider the following (all in $\mathbb{C}^2$):
+        \begin{align}
+            \ket{a} & = \begin{pmatrix}
+                1 + i \\
+                2
+            \end{pmatrix},
+            \ket{b} = \begin{pmatrix}
+                2 \\
+                3
+            \end{pmatrix}
+        \end{align}
+        And $\ket{0}, \ket{1}, \ket{+}, \ket{-}$ as defined before.
+        Then:
+        \begin{equation} \braket{0|1} = \braket{+| -} = 0 \end{equation}
         \begin{equation} \braket{0|0} = \braket{1|1} =  \braket{+| +} = \braket{-| -} = 1 \end{equation}
         \begin{equation}
             \braket{a|b} = 6 - 2i, \braket{b|b} = 13, \braket{a|0} = 1-i
         \end{equation}
-        \end{example}
-    
-    \end{frame}
-    \begin{frame}
-        \frametitle{Orthonormality}
-        You might have noticed before that our standard basis (and in fact also $\ket{+}, \ket{-}$) of $\mathbb{C}^2$ satisfies the following property:
-        \begin{equation}
-            \braket{i|j} = \delta_{ij}
-        \end{equation}
-        Where $\delta_{ij}$ is the Kronecker delta, defined as:
-        \begin{equation}
-        \delta_{ij} =
-                \begin{cases}
-                    1, &         \text{if } i=j,\\
-                    0, &         \text{if } i\neq j.
-                \end{cases}
-        \end{equation}
-        Any basis, satisfying this condition is called \textit{orthornormal}. 
-        A result in linear algebra is that any basis can be converted to an orthornormal one thanks to the Gram Schmidt process, which simplifies a lot of proofs.
-    \end{frame}
-    \subsection{Eigenstuff}
-    \begin{frame}
-        \frametitle{Eigenvalues}
-        In the whole of linear algebra one equation is of particular interest:
-        \begin{equation}
-            A\ket{v} = \lambda \ket{v}
-        \end{equation}
-        If the above hold, then $\lambda$ is called an \textit{eigenvalue} of $A$, with $\ket{v}$ its corresponding \textit{eigenvector}.
-        We are particularly interested in \textit{spectral decompositions}, i.e. operators for which:
-        \begin{equation}
-            A = \sum_\lambda \lambda \ket{\lambda}\bra{\lambda}.
-        \end{equation}
-        Where $\lambda$ is the eigenvalue with eigenvector $\ket{\lambda}$, and $\ket{v}\bra{w}$ is defined to 
-        be the linear operator such that $\ket{v}\bra{w}(\ket{z}) \equiv \ket{v}\braket{w|z}$
-    
-    \end{frame}
-    \begin{frame}
-        \frametitle{Eigenvalues}
-        \begin{example}
-            Consider $H$ as in \ref{Hadamard}. Then $H$ has eigenvalues $\pm 1$, with (non normalized) eigenvectors $(1 \pm \sqrt{2})\ket{0} + \ket{1}$.
-            The Pauli Matrices defined in \ref{Pauli} also have eigenvalues $\pm 1$. The eigenvectors are:
-            \begin{align}
-                \label{decomposition}
-                \ket{\lambda_{x+}} = \ket{+} &= \frac{1}{\sqrt{2}} \begin{pmatrix}
-                    1 \\
-                    1
-                \end{pmatrix},
-                \ket{\lambda_{x-}} = \ket{-} = \frac{1}{\sqrt{2}} \begin{pmatrix}
-                    1 \\
-                    -1
-                \end{pmatrix}
-            \end{align}
-            \begin{align}
-                \ket{\lambda_{y+}} &= \frac{1}{\sqrt{2}} \begin{pmatrix}
-                    1 \\
-                    i
-                \end{pmatrix},
-                \ket{\lambda_{y-}} = \frac{1}{\sqrt{2}} \begin{pmatrix}
-                    i \\
-                    1
-                \end{pmatrix}
-            \end{align}
-            \begin{align}
-                \ket{\lambda_{z+}} &= \ket{0} = \begin{pmatrix}
-                    1 \\
-                    0
-                \end{pmatrix},
-                \ket{\lambda_{z-}} = \ket{1} = \begin{pmatrix}
-                    0 \\
-                    1
-                \end{pmatrix}
-            \end{align}
-        \end{example}
-    \end{frame}
-    \subsection{Adjoint and Tensors}
-    \begin{frame}
-        \frametitle{Adjoint}
-        For a linear operator $A$, we define $A^\dagger \equiv (A^T)^*$, where $\cdot^T$ is the transpose operation.
-        It has the defining property that $\braket{v|A|w} = \braket{v'|w}$ where $\ket{v'} = A^\dagger \ket{v}$.
-        Some matrices behave particularly well with respect with their adjoint, and so we denote then appropriately:
-        \begin{itemize}
-            \item $H = H^\dagger$, then $H$ is Hermitian
-            \item $UU^\dagger = I$, then $U$ is Unitary 
-            \item $N N^\dagger = N^\dagger N$, then $N$ is Normal 
-        \end{itemize}
-        It is quite easy to show that an Hermitian or Unitary operator is automatically normal, and 
-        the spectral theorem shows that any Normal operator has a spectral decompositions, which comes in quite handy.
-    \end{frame}
-    \begin{frame}
-        \frametitle{Tensor Product}
-        Finally, we want a way to put together Hilbert spaces. For Hilbert spaces $V, W$ we define the tensored product $V \otimes W$.
-        If $\ket{v_i}, \ket{w_i}$ is a basis for respectively $V, W$, then $\ket{v_i} \otimes \ket{w_i}$ is a basis for the product.
-        Also the following hold:
-        \begin{itemize}
-            \item $\alpha (\ket{v}\otimes\ket{w}) = (\alpha \ket{v})\otimes\ket{w} = \ket{v}\otimes (\alpha \ket{w})$
-            \item $(\ket{v} + \ket{v'}) \otimes\ket{w} = \ket{v} \otimes \ket{w} + \ket{v'} \otimes \ket{w}$
-            \item $\ket{v} \otimes (\ket{w} + \ket{w'}) = \ket{v} \otimes \ket{w} + \ket{v} \otimes \ket{w'}$
-        \end{itemize}
-        Also, for linear operators $A: V \to V$, $B: W \to W$ we define $(A \otimes B) (\ket{v} \otimes \ket{w}) \equiv A \ket{v} \otimes B \ket{w}$
-        Finally, the inner product of $\ket{a} = \sum_i \alpha_i \ket{v_i} \otimes \ket{w_i}$ and $\ket{b} = \sum_j \beta_j \ket{v_j'} \otimes \ket{w_j'}$ is quite\footnote{lol} naturally:
-        \begin{equation}
-            \braket{a|b} \equiv \sum_{ij} \alpha_i^* \beta_j \braket{v_i|v_j'} \braket{w_i|w_j'} 
-        \end{equation}
-        Or, more simply: $(\bra{v} \otimes \bra{w})(\ket{v'} \otimes \ket{w'}) = \braket{v|v'} \braket{w|w'}$
-    \end{frame}
-    \begin{frame}
-        \frametitle{Notes on notation}
-        It is common to abbreviate $\ket{v} \otimes \ket{w}$ as $\ket{v}\ket{w}$ or $\ket{v, w}$ or even,
-        sometimes (especially in qubit systems) as $\ket{v_L w_R}$ or $\ket{v w}$. \\
-        Also we have the operation $\cdot^{\otimes n}$ is the operation of tensoring the object with itself $n$ times.
-        \begin{example}
-            Consider  $\mathbb{C}^2 \otimes \mathbb{C}^2 = (\mathbb{C}^2)^{\otimes 2}$. 
-            This vector space has then basis $\ket{0}\ket{0}, \ket{0}\ket{1}, \ket{1}\ket{0}, \ket{1}\ket{1}$.
-            Then $\ket{0}^{\otimes 2} = \ket{0} \otimes \ket{0} = \ket{00}$
-            Note that here I am switching notation just for explanation, I'll try to be consistent afterwards.
-        \end{example}
-        
+    \end{example}
 
-    
-    \end{frame}
-    \begin{frame}
-        \frametitle{Kronecker product}
-        In order to make this more concrete, we define the Kronecker product for tensoring two matrices (vec) together.
-        Let $A$ be a $m \times n$ matrix, and $B$ be a $p \times q$ matrix. Then
+\end{frame}
+\begin{frame}
+    \frametitle{Orthonormality}
+    You might have noticed before that our standard basis (and in fact also $\ket{+}, \ket{-}$) of $\mathbb{C}^2$ satisfies the following property:
+    \begin{equation}
+        \braket{i|j} = \delta_{ij}
+    \end{equation}
+    Where $\delta_{ij}$ is the Kronecker delta, defined as:
+    \begin{equation}
+        \delta_{ij} =
+        \begin{cases}
+            1, & \text{if } i=j,     \\
+            0, & \text{if } i\neq j.
+        \end{cases}
+    \end{equation}
+    Any basis, satisfying this condition is called \textit{orthonormal}.
+    A result in linear algebra is that any basis can be converted to an orthonormal one thanks to the Gram Schmidt process, which simplifies a lot of proofs.
+\end{frame}
+\subsection{Eigenstuff}
+\begin{frame}
+    \frametitle{Eigenvalues}
+    In the whole of linear algebra one equation is of particular interest:
+    \begin{equation}
+        A\ket{v} = \lambda \ket{v}
+    \end{equation}
+    If the above hold, then $\lambda$ is called an \textit{eigenvalue} of $A$, with $\ket{v}$ its corresponding \textit{eigenvector}.
+    We are particularly interested in \textit{spectral decompositions}, i.e. operators for which:
+    \begin{equation}
+        A = \sum_\lambda \lambda \ket{\lambda}\bra{\lambda}.
+    \end{equation}
+    Where $\lambda$ is the eigenvalue with eigenvector $\ket{\lambda}$, and $\ket{v}\bra{w}$ is defined to
+    be the linear operator such that $\ket{v}\bra{w}(\ket{z}) \equiv \ket{v}\braket{w|z}$
+
+\end{frame}
+\begin{frame}
+    \frametitle{Eigenvalues}
+    \begin{example}
+        Consider $H$ as in \ref{Hadamard}. Then $H$ has eigenvalues $\pm 1$, with (non normalized) eigenvectors $(1 \pm \sqrt{2})\ket{0} + \ket{1}$.
+        The Pauli Matrices defined in \ref{Pauli} also have eigenvalues $\pm 1$. The eigenvectors are:
         \begin{align}
-            A \otimes B &= \begin{pmatrix}
-                A_{11} B \dots A_{1n} B \\
-                \vdots \ddots \vdots  \\
-                A_{m1} B \dots A_{mn} B
+            \label{decomposition}
+            \ket{\lambda_{x+}} = \ket{+} & = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 \\
+                1
+            \end{pmatrix},
+            \ket{\lambda_{x-}} = \ket{-} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 \\
+                -1
             \end{pmatrix}
         \end{align}
-        is a $mp \times nq$ matrix, and is called the Kronecker product of $A, B$.
-    
-    \end{frame}
-    \begin{frame}
-        \frametitle{Tensor Product}
-        \begin{example}
-            Consider now the the tensored product $T = (\mathbb{C}^2)^{\otimes 2}$.
-            The vector $(\ket{0} + 2 \ket{1}) \otimes (2 \ket{0} + 3 \ket{1})$ in $T$ is equal to $ 2 \ket{00} + 3 \ket{01} + 4\ket{10} + 6\ket{11}$
-            This is also apparent from the Kronecker representation:
-            \begin{equation}
-                \begin{pmatrix}
-                    1 \\
-                    2
-                \end{pmatrix} \otimes
-                \begin{pmatrix}
-                    2 \\
-                    3
-                \end{pmatrix}
-                = 
-                \begin{pmatrix}
-                    1 \times 2 \\
-                    1 \times 3 \\
-                    2 \times 2 \\
-                    2 \times 3
-                \end{pmatrix}
-                = \begin{pmatrix}
-                    2 \\
-                    3 \\
-                    4 \\
-                    6
-                \end{pmatrix}
-            \end{equation}
-            You can also check that the product of Pauli matrices $X, Y$ is:
-            \begin{equation}
-                X \otimes Y = 
-                \begin{pmatrix}
-                    0 & 0 & 0 & -i \\
-                    0 & 0 & i & 0 \\
-                    0 & -i & 0 & 0 \\
-                    i & 0 & 0 & 0 
-                \end{pmatrix}
-            \end{equation}
-        \end{example}
-    \end{frame}
-    \section{Physics}
-    \subsection{Postulates}
-    \begin{frame}
-        \frametitle{State space}
-        Quantum Mechanics is a framework for understanding quantum systems. 
-        It has some fundamental postulates that it uses as axioms and are esperimentally validated.
-        \begin{definition}
-            \textbf{Postulate 1}: Every closed quantum system has an associated Hilbert space. 
-            This space is known as the \textit{state space} of the system. The system is completely described by its
-            \textit{state vector}, which is simply a unit vector in the state space.
-        \end{definition}
-        A general state vector is of the form:
-        \begin{equation}
-            \ket{\psi} = \sum_i \alpha_i \ket{\psi_i}
-        \end{equation}
-        We say that $\ket{\psi}$ is in a superposition of states, with state $\ket{\psi_i}$ having amplitude $\alpha_i$.
-    \end{frame}
-    \begin{frame}
-        \frametitle{State space}
-        \begin{example}
-            Let us consider the simplest quantum system: a \textit{qubit}. 
-            This is simply a quantum system with an associated two dimensional state space.
-            Letting $\ket{0}, \ket{1}$ be a orthornormal basis for the state space, a general state vector 
-            is described as:
-            \begin{equation}
-                \ket{\psi} = a \ket{0} + b \ket{1}
-            \end{equation}
-            And, since $\ket{\psi}$ is a unit, $\braket{\psi|\psi} = |a|^2 + |b|^2 = 1$
-            For example, the following is a valid state for a qubit:
-            \begin{equation}
-                \frac{\ket{0} - \ket{1}}{\sqrt{2}}
-            \end{equation}
-            Where state $\ket{0}$ has amplitude $\frac{1}{\sqrt{2}}$ and state $\ket{1}$ has amplitude $\frac{-1}{\sqrt{2}}$ 
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{System Evolution}
-        \begin{definition}
-            \textbf{Postulate 2}: The evolution of a closed Quantum System is described by a
-            Unitary transformation. So if the state vector at time $t_1$ is $\ket{\psi}$, 
-            and at time $t_2$ it becomes $\ket{\psi'}$, then there exist a Unitary operator $U$, 
-            which depends only on $t_1, t_2$ such that:
-            \begin{equation}
-                \ket{\psi'} = U \ket{\psi}
-            \end{equation}
+        \begin{align}
+            \ket{\lambda_{y+}} & = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 \\
+                i
+            \end{pmatrix},
+            \ket{\lambda_{y-}} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                i \\
+                1
+            \end{pmatrix}
+        \end{align}
+        \begin{align}
+            \ket{\lambda_{z+}} & = \ket{0} = \begin{pmatrix}
+                1 \\
+            \end{pmatrix},
+            \ket{\lambda_{z-}} = \ket{1} = \begin{pmatrix}
+                0 \\
+                1
+            \end{pmatrix}
+        \end{align}
+    \end{example}
+\end{frame}
+\subsection{Adjoint and Tensors}
+\begin{frame}
+    \frametitle{Adjoint}
+    For a linear operator $A$, we define $A^\dagger \equiv (A^T)^*$, where $\cdot^T$ is the transpose operation.
+    It has the defining property that $\braket{v|A|w} = \braket{v'|w}$ where $\ket{v'} = A^\dagger \ket{v}$.
+    Some matrices behave particularly well with respect with their adjoint, and so we denote then appropriately:
+    \begin{itemize}
+        \item $H = H^\dagger$, then $H$ is Hermitian
+        \item $UU^\dagger = I$, then $U$ is Unitary
+        \item $N N^\dagger = N^\dagger N$, then $N$ is Normal
+    \end{itemize}
+    It is quite easy to show that an Hermitian or Unitary operator is automatically normal, and
+    the spectral theorem shows that any Normal operator has a spectral decompositions, which comes in quite handy.
+\end{frame}
+\begin{frame}
+    \frametitle{Tensor Product}
+    Finally, we want a way to put together Hilbert spaces. For Hilbert spaces $V, W$ we define the tensor product $V \otimes W$.
+    If $\ket{v_i}, \ket{w_i}$ is a basis for respectively $V, W$, then $\ket{v_i} \otimes \ket{w_i}$ is a basis for the product.
+    Also the following hold:
+    \begin{itemize}
+        \item $\alpha (\ket{v}\otimes\ket{w}) = (\alpha \ket{v})\otimes\ket{w} = \ket{v}\otimes (\alpha \ket{w})$
+        \item $(\ket{v} + \ket{v'}) \otimes\ket{w} = \ket{v} \otimes \ket{w} + \ket{v'} \otimes \ket{w}$
+        \item $\ket{v} \otimes (\ket{w} + \ket{w'}) = \ket{v} \otimes \ket{w} + \ket{v} \otimes \ket{w'}$
+    \end{itemize}
+    Also, for linear operators $A: V \to V$, $B: W \to W$ we define $(A \otimes B) (\ket{v} \otimes \ket{w}) \equiv A \ket{v} \otimes B \ket{w}$
+    Finally, the inner product of $\ket{a} = \sum_i \alpha_i \ket{v_i} \otimes \ket{w_i}$ and $\ket{b} = \sum_j \beta_j \ket{v_j'} \otimes \ket{w_j'}$ is quite\footnote{lol} naturally:
+    \begin{equation}
+        \braket{a|b} \equiv \sum_{ij} \alpha_i^* \beta_j \braket{v_i|v_j'} \braket{w_i|w_j'}
+    \end{equation}
+    Or, more simply: $(\bra{v} \otimes \bra{w})(\ket{v'} \otimes \ket{w'}) = \braket{v|v'} \braket{w|w'}$
+\end{frame}
+\begin{frame}
+    \frametitle{Notes on notation}
+    It is common to abbreviate $\ket{v} \otimes \ket{w}$ as $\ket{v}\ket{w}$ or $\ket{v, w}$ or even,
+    sometimes (especially in qubit systems) as $\ket{v_L w_R}$ or $\ket{v w}$. \\
+    Also we have the operation $\cdot^{\otimes n}$ is the operation of tensoring the object with itself $n$ times.
+    \begin{example}
+        Consider  $\mathbb{C}^2 \otimes \mathbb{C}^2 = (\mathbb{C}^2)^{\otimes 2}$.
+        This vector space has then basis $\ket{0}\ket{0}, \ket{0}\ket{1}, \ket{1}\ket{0}, \ket{1}\ket{1}$.
+        Then $\ket{0}^{\otimes 2} = \ket{0} \otimes \ket{0} = \ket{00}$
+        Note that here I am switching notation just for explanation, I'll try to be consistent afterwards.
+    \end{example}
 
-        \end{definition}
-        Some unitary transformation we might consider are the Pauli matrices that we introduced before.
-        For example $X$ acts as a gate that flips the single qubit $a\ket{0} + b\ket{1} \xrightarrow{X} b\ket{0} + a\ket{1}$
-    \end{frame}
-    \begin{frame}
-        \frametitle{System Evolution}
-        Postulate 2 before deals only with a discrete step in time. It turns out we can refine this to deal
-        with continuos time evolution, and doing so results in the famous Schrödinger equation.
-        \begin{definition}
-            \textbf{Postulate 2'}:  The evolution of a closed Quantum System is described by \textit{Schrödinger equation}:
-            \begin{equation}
-                \label{shroedinger}
-                i \hbar \diff{\ket{\psi}}{t} = H \ket{\psi}
-            \end{equation}
-            Where $\hbar$ is the reduced Planck Constant, and $H$ is an Hermitian operator which needs to 
-            be figured out for the system in question.
-        \end{definition}
-        Sometime it is useful that, if $H$ is independent from time, and we know the state $\ket{\psi_0}$ at $t = 0$
+
+
+\end{frame}
+\begin{frame}
+    \frametitle{Kronecker product}
+    In order to make this more concrete, we define the Kronecker product for tensoring two matrices (vec) together.
+    Let $A$ be a $m \times n$ matrix, and $B$ be a $p \times q$ matrix. Then
+    \begin{align}
+        A \otimes B & = \begin{pmatrix}
+            A_{11} B \dots A_{1n} B \\
+            \vdots \ddots \vdots    \\
+            A_{m1} B \dots A_{mn} B
+        \end{pmatrix}
+    \end{align}
+    is a $mp \times nq$ matrix, and is called the Kronecker product of $A, B$.
+
+\end{frame}
+\begin{frame}
+    \frametitle{Tensor Product}
+    \begin{example}
+        Consider now the the tensor product $T = (\mathbb{C}^2)^{\otimes 2}$.
+        The vector $(\ket{0} + 2 \ket{1}) \otimes (2 \ket{0} + 3 \ket{1})$ in $T$ is equal to $ 2 \ket{00} + 3 \ket{01} + 4\ket{10} + 6\ket{11}$
+        This is also apparent from the Kronecker representation:
         \begin{equation}
-            \ket{\psi(t)} = \exp\left(\frac{-itH}{\hbar}\right)\ket{\psi_0}
+            \begin{pmatrix}
+                1 \\
+                2
+            \end{pmatrix} \otimes
+            \begin{pmatrix}
+                2 \\
+                3
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                1 \times 2 \\
+                1 \times 3 \\
+                2 \times 2 \\
+                2 \times 3
+            \end{pmatrix}
+            = \begin{pmatrix}
+                2 \\
+                3 \\
+                4 \\
+                6
+            \end{pmatrix}
         \end{equation}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Energy states}
-        In particular, since $H$ is Hermitian in \ref{shroedinger}, it has spectral decomposition:
+        You can also check that the product of Pauli matrices $X, Y$ is:
         \begin{equation}
-            H = \sum_E E \ket{E}\bra{E}
+            X \otimes Y =
+            \begin{pmatrix}
+                0 & 0  & 0 & -i \\
+                0 & 0  & i & 0  \\
+                0 & -i & 0 & 0  \\
+                i & 0  & 0 & 0
+            \end{pmatrix}
         \end{equation}
-        where all the eigenvalues $E$ are real\footnote{This is a property of Hermitian operator}. 
-        The states $\ket{E}$ are known as the \textit{energy eigenstates} (or sometimes stationary), and the $E$ is the corresponding
-        energy of the eigenstate. The lowest energy and the corresponding eigenstate are known as the \textit{ground state energy} and the \textit{ground state}.
-    \end{frame}
-    \begin{frame}
-        \frametitle{System Evolution}
-        \begin{example}
-            Consider $H = \hbar \omega Z$, for some $\omega > 0$. Then, using \ref{decomposition}, $H = \hbar \omega (\ket{+}\bra{+} - \ket{-}\bra{-})$
-            and as such the energy eigenstate are $\ket{+}, \ket{-}$, with energies respectively $\hbar \omega, -\hbar\omega$.
-            So the ground state is $\ket{-}$, with energy $-\hbar\omega$.
-            Also, if $\ket{\psi_0} = \ket{0}$, then using the solution before we have:
-            \begin{align}
-                \ket{\psi(t)} &= \exp(-i \omega t Z)\ket{0} \\
-                &= (e^{-i \omega t} \ket{+}\bra{+} + e^{i \omega t} \ket{-}\bra{-})\ket{0} \\
-                &= \frac{1}{\sqrt{2}} \left(e^{-i \omega t} \ket{+} + e^{i \omega t} \ket{-}\right) 
-            \end{align}
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Measurement}
-        Now, we aim to find a way to measure the state of a system.
-        \begin{definition}
-            \textbf{Postulate 3}: Quantum measurement is defined by a collection of operators
-            ${M_m}$ called \textit{measurement operators}. In particular, given that the system is 
-            in state $\ket{\psi}$, the probability of obtaining result $m$ is:
-            \begin{equation}
-                p(m) = \braket{\psi|M_m^\dagger M_m|\psi}
-            \end{equation}
-            And the state after that measurement $m$ changes to:
-            \begin{equation}
-                \ket{\psi'} = \frac{M_m \ket{\psi}}{\sqrt{p(m)}}
-            \end{equation}
-        \end{definition}
-        It is important to also have that $\sum_m p(m) = 1$ for every $\ket{\psi}$. 
-        Equivalently, the operators need to satisfy $\sum_m M_m^\dagger M_m = I$
-    \end{frame}
-    \begin{frame}
-        \frametitle{Measurement}
-        \begin{example}
-            Let us consider the usual qubit system, and measurement operators:
-            \begin{align}
-                M_0 &= \ket{0}\bra{0} \\
-                M_1 &= \ket{1}\bra{1} 
-            \end{align}
-            It is easy to verify completeness is satisfied. Now, consider the general state 
-            $\ket{\psi} = a\ket{0} + b\ket{1}$. Then
-            \begin{align}
-                p(0) &= |a|^2 \text{ and } \ket{\psi} \to \frac{a}{|a|} \ket{0} \\ 
-                p(1) &= |b|^2 \text{ and } \ket{\psi} \to \frac{b}{|b|} \ket{1}  
-            \end{align}
-            Taking a concrete example: the state $\ket{+}$ when measured collapses 
-            to $\ket{0}$ precisely half of the times.
-            Also note that measuring it with operators $M_{\pm} = \ket{\pm}\bra{\pm}$
-            yields the result $\ket{+}$ with probability 1.
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Measurement}
-        An alternative way to describe measurement operators, is by using projective measurements.
-        The operators are described by a single Hermitian operator, called an \textit{observable}:
+    \end{example}
+\end{frame}
+\section{Physics}
+\subsection{Postulates}
+\begin{frame}
+    \frametitle{State space}
+    Quantum Mechanics is a framework for understanding quantum systems.
+    It has some fundamental postulates that it uses as axioms and are experimentally validated.
+    \begin{definition}
+        \textbf{Postulate 1}: Every closed quantum system has an associated Hilbert space.
+        This space is known as the \textit{state space} of the system. The system is completely described by its
+        \textit{state vector}, which is simply a unit vector in the state space.
+    \end{definition}
+    A general state vector is of the form:
+    \begin{equation}
+        \ket{\psi} = \sum_i \alpha_i \ket{\psi_i}
+    \end{equation}
+    We say that $\ket{\psi}$ is in a superposition of states, with state $\ket{\psi_i}$ having amplitude $\alpha_i$.
+\end{frame}
+\begin{frame}
+    \frametitle{State space}
+    \begin{example}
+        Let us consider the simplest quantum system: a \textit{qubit}.
+        This is simply a quantum system with an associated two dimensional state space.
+        Letting $\ket{0}, \ket{1}$ be a orthonormal basis for the state space, a general state vector
+        is described as:
         \begin{equation}
-            M = \sum_m m P_m
+            \ket{\psi} = a \ket{0} + b \ket{1}
         \end{equation}
-        where $P_m$ is the projector\footnote{An operator such that $P^2 = P$ } onto the eigenspace of $M$ with eigenvalue $m$.
-        Using those, we have that, if we are on state $\ket{\psi}$:
+        And, since $\ket{\psi}$ is a unit, $\braket{\psi|\psi} = |a|^2 + |b|^2 = 1$
+        For example, the following is a valid state for a qubit:
+        \begin{equation}
+            \frac{\ket{0} - \ket{1}}{\sqrt{2}}
+        \end{equation}
+        Where state $\ket{0}$ has amplitude $\frac{1}{\sqrt{2}}$ and state $\ket{1}$ has amplitude $\frac{-1}{\sqrt{2}}$
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{System Evolution}
+    \begin{definition}
+        \textbf{Postulate 2}: The evolution of a closed Quantum System is described by a
+        Unitary transformation. So if the state vector at time $t_1$ is $\ket{\psi}$,
+        and at time $t_2$ it becomes $\ket{\psi'}$, then there exist a Unitary operator $U$,
+        which depends only on $t_1, t_2$ such that:
+        \begin{equation}
+            \ket{\psi'} = U \ket{\psi}
+        \end{equation}
+
+    \end{definition}
+    Some unitary transformation we might consider are the Pauli matrices that we introduced before.
+    For example $X$ acts as a gate that flips the single qubit $a\ket{0} + b\ket{1} \xrightarrow{X} b\ket{0} + a\ket{1}$
+\end{frame}
+\begin{frame}
+    \frametitle{System Evolution}
+    Postulate 2 before deals only with a discrete step in time. It turns out we can refine this to deal
+    with continuos time evolution, and doing so results in the famous Schrödinger equation.
+    \begin{definition}
+        \textbf{Postulate 2'}:  The evolution of a closed Quantum System is described by \textit{Schrödinger equation}:
+        \begin{equation}
+            \label{shroedinger}
+            i \hbar \diff{\ket{\psi}}{t} = H \ket{\psi}
+        \end{equation}
+        Where $\hbar$ is the reduced Planck Constant, and $H$ is an Hermitian operator which needs to
+        be figured out for the system in question.
+    \end{definition}
+    Sometime it is useful that, if $H$ is independent from time, and we know the state $\ket{\psi_0}$ at $t = 0$
+    \begin{equation}
+        \ket{\psi(t)} = \exp\left(\frac{-itH}{\hbar}\right)\ket{\psi_0}
+    \end{equation}
+\end{frame}
+\begin{frame}
+    \frametitle{Energy states}
+    In particular, since $H$ is Hermitian in \ref{shroedinger}, it has spectral decomposition:
+    \begin{equation}
+        H = \sum_E E \ket{E}\bra{E}
+    \end{equation}
+    where all the eigenvalues $E$ are real\footnote{This is a property of Hermitian operator}.
+    The states $\ket{E}$ are known as the \textit{energy eigenstates} (or sometimes stationary), and the $E$ is the corresponding
+    energy of the eigenstate. The lowest energy and the corresponding eigenstate are known as the \textit{ground state energy} and the \textit{ground state}.
+\end{frame}
+\begin{frame}
+    \frametitle{System Evolution}
+    \begin{example}
+        Consider $H = \hbar \omega Z$, for some $\omega > 0$. Then, using \ref{decomposition}, $H = \hbar \omega (\ket{+}\bra{+} - \ket{-}\bra{-})$
+        and as such the energy eigenstate are $\ket{+}, \ket{-}$, with energies respectively $\hbar \omega, -\hbar\omega$.
+        So the ground state is $\ket{-}$, with energy $-\hbar\omega$.
+        Also, if $\ket{\psi_0} = \ket{0}$, then using the solution before we have:
         \begin{align}
-            p(m) &= \braket{\psi|P_m|\psi} \\
-            \ket{\psi'} &= \frac{P_m \ket{\psi}}{\sqrt{p(m)}}
+            \ket{\psi(t)} & = \exp(-i \omega t Z)\ket{0}                                                       \\
+                          & = (e^{-i \omega t} \ket{+}\bra{+} + e^{i \omega t} \ket{-}\bra{-})\ket{0}          \\
+                          & = \frac{1}{\sqrt{2}} \left(e^{-i \omega t} \ket{+} + e^{i \omega t} \ket{-}\right)
         \end{align}
-        These are especially useful since $\mathbb{E}(M) = \braket{\psi|M|\psi}$. 
-        We also write $\braket{M} \equiv \mathbb{E}(M)$, and $(\Delta(M))^2 = \mathrm{Var}(M) = \braket{M^2} - \braket{M}^2$
-    \end{frame}
-    \begin{frame}
-        \frametitle{Measurement}
-        \begin{example}
-            Consider for example the observable $Z$ as defined in \ref{Pauli}. 
-            Then we know from \ref{decomposition} that:
-            \begin{equation}
-                Z = \ket{0}\bra{0} - \ket{1}\bra{1}
-            \end{equation}
-            So measuring our usual single qubit state $\ket{+}$ yields $+1$ or $-1$ with
-            probability $\frac{1}{2}$. In particular, the expected value and standard deviation of the observable
-            are
-            \begin{align}
-             \braket{Z} &= \braket{+|Z|+} = \braket{+| -} = 0 \\
-             \Delta(Z) &= \sqrt{\braket{Z^2} - \braket{Z}} = \sqrt{\braket{+|+}} = 1
-            \end{align}
-            Heisenberg uncertainty principle can be written in this language as:
-            \begin{equation}
-                \Delta(A)\Delta(B) \geq \frac{|\braket{\psi|[A, B]|\psi}|}{2}
-            \end{equation}
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Notes on Phase}
-        Often you will hear the term of phase, and of two states being not distinguishable
-        up to a global phase. What this means is that state $\ket{\psi'} = e^{i\theta}\ket{\psi}$
-        for some real $\theta$. These are called undistinguishable as, for any measurement
-        operator $M_m$ we have that:
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Measurement}
+    Now, we aim to find a way to measure the state of a system.
+    \begin{definition}
+        \textbf{Postulate 3}: Quantum measurement is defined by a collection of operators
+        ${M_m}$ called \textit{measurement operators}. In particular, given that the system is
+        in state $\ket{\psi}$, the probability of obtaining result $m$ is:
+        \begin{equation}
+            p(m) = \braket{\psi|M_m^\dagger M_m|\psi}
+        \end{equation}
+        And the state after that measurement $m$ changes to:
+        \begin{equation}
+            \ket{\psi'} = \frac{M_m \ket{\psi}}{\sqrt{p(m)}}
+        \end{equation}
+    \end{definition}
+    It is important to also have that $\sum_m p(m) = 1$ for every $\ket{\psi}$.
+    Equivalently, the operators need to satisfy $\sum_m M_m^\dagger M_m = I$
+\end{frame}
+\begin{frame}
+    \frametitle{Measurement}
+    \begin{example}
+        Let us consider the usual qubit system, and measurement operators:
         \begin{align}
-            p_{\psi'}(m) &= \braket{\psi'|M_m^\dagger M_m|\psi'} \\ 
-            &= \braket{\psi|e^{-i\theta}M_m^\dagger M_m e^{i\theta} |\psi} \\
-            &= \braket{\psi|M_m^\dagger M_m \psi} = p_{\psi}(m)
+            M_0 & = \ket{0}\bra{0} \\
+            M_1 & = \ket{1}\bra{1}
         \end{align}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Composition}
-        Our final postulate, involves putting together Quantum Systems. 
-        It should come as no surprise that it involves the Tensor Product:
-        \begin{definition}
-            \textbf{Postulate 4}: The state space of a composite physical system is the tensor 
-            product of the state spaces of the individual systems. Furthermore,
-            if there are $n$ systems, and system $i$ is in state $\ket{\psi_i}$,
-            then the state of the composite system is:
-            \begin{equation}
-                \bigotimes_{i=1}^n \ket{\psi_i} = \ket{\psi_1} \otimes\dots \otimes \ket{\psi_n}
-            \end{equation}
-        \end{definition}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Composition}
-        \begin{example}
+        It is easy to verify completeness is satisfied. Now, consider the general state
+        $\ket{\psi} = a\ket{0} + b\ket{1}$. Then
+        \begin{align}
+            p(0) & = |a|^2 \text{ and } \ket{\psi} \to \frac{a}{|a|} \ket{0} \\
+            p(1) & = |b|^2 \text{ and } \ket{\psi} \to \frac{b}{|b|} \ket{1}
+        \end{align}
+        Taking a concrete example: the state $\ket{+}$ when measured collapses
+        to $\ket{0}$ precisely half of the times.
+        Also note that measuring it with operators $M_{\pm} = \ket{\pm}\bra{\pm}$
+        yields the result $\ket{+}$ with probability 1.
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Measurement}
+    An alternative way to describe measurement operators, is by using projective measurements.
+    The operators are described by a single Hermitian operator, called an \textit{observable}:
+    \begin{equation}
+        M = \sum_m m P_m
+    \end{equation}
+    where $P_m$ is the projector\footnote{An operator such that $P^2 = P$ } onto the eigenspace of $M$ with eigenvalue $m$.
+    Using those, we have that, if we are on state $\ket{\psi}$:
+    \begin{align}
+        p(m)        & = \braket{\psi|P_m|\psi}             \\
+        \ket{\psi'} & = \frac{P_m \ket{\psi}}{\sqrt{p(m)}}
+    \end{align}
+    These are especially useful since $\mathbb{E}(M) = \braket{\psi|M|\psi}$.
+    We also write $\braket{M} \equiv \mathbb{E}(M)$, and $(\Delta(M))^2 = \mathrm{Var}(M) = \braket{M^2} - \braket{M}^2$
+\end{frame}
+\begin{frame}
+    \frametitle{Measurement}
+    \begin{example}
+        Consider for example the observable $Z$ as defined in \ref{Pauli}.
+        Then we know from \ref{decomposition} that:
+        \begin{equation}
+            Z = \ket{0}\bra{0} - \ket{1}\bra{1}
+        \end{equation}
+        So measuring our usual single qubit state $\ket{+}$ yields $+1$ or $-1$ with
+        probability $\frac{1}{2}$. In particular, the expected value and standard deviation of the observable
+        are
+        \begin{align}
+            \braket{Z} & = \braket{+|Z|+} = \braket{+| -} = 0                         \\
+            \Delta(Z)  & = \sqrt{\braket{Z^2} - \braket{Z}} = \sqrt{\braket{+|+}} = 1
+        \end{align}
+        Heisenberg uncertainty principle can be written in this language as:
+        \begin{equation}
+            \Delta(A)\Delta(B) \geq \frac{|\braket{\psi|[A, B]|\psi}|}{2}
+        \end{equation}
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Notes on Phase}
+    Often you will hear the term of phase, and of two states being not distinguishable
+    up to a global phase. What this means is that state $\ket{\psi'} = e^{i\theta}\ket{\psi}$
+    for some real $\theta$. These are called undistinguishable as, for any measurement
+    operator $M_m$ we have that:
+    \begin{align}
+        p_{\psi'}(m) & = \braket{\psi'|M_m^\dagger M_m|\psi'}                        \\
+                     & = \braket{\psi|e^{-i\theta}M_m^\dagger M_m e^{i\theta} |\psi} \\
+                     & = \braket{\psi|M_m^\dagger M_m |\psi} = p_{\psi}(m)
+    \end{align}
+\end{frame}
+\begin{frame}
+    \frametitle{Composition}
+    Our final postulate, involves putting together Quantum Systems.
+    It should come as no surprise that it involves the Tensor Product:
+    \begin{definition}
+        \textbf{Postulate 4}: The state space of a composite physical system is the tensor
+        product of the state spaces of the individual systems. Furthermore,
+        if there are $n$ systems, and system $i$ is in state $\ket{\psi_i}$,
+        then the state of the composite system is:
+        \begin{equation}
+            \bigotimes_{i=1}^n \ket{\psi_i} = \ket{\psi_1} \otimes\dots \otimes \ket{\psi_n}
+        \end{equation}
+    \end{definition}
+\end{frame}
+\begin{frame}
+    \frametitle{Composition}
+    \begin{example}
         Consider two single qubit system, in states $\ket{\psi_1} = \ket{+}$, and $\ket{\psi_2} =\ket{-}$.
-        Recall that each of the systems should have a probability $\frac{1}{2}$ to be measured as $0, 1$. 
+        Recall that each of the systems should have a probability $\frac{1}{2}$ to be measured as $0, 1$.
         So we expect that the tensor product of the two should obey the probability composition.
         \begin{align}
-            \ket{\psi_1} \otimes \ket{\psi_2} &= \ket{+}\ket{-} \\
-            &= \frac{1}{2}\left(\ket{00} + \ket{01} - \ket{10} - \ket{11} \right)
+            \ket{\psi_1} \otimes \ket{\psi_2} & = \ket{+}\ket{-}                                                     \\
+                                              & = \frac{1}{2}\left(\ket{00} + \ket{01} - \ket{10} - \ket{11} \right)
         \end{align}
         Using the idea that measurement probability is the square of the amplitude
         \footnote{You can prove using measurement operator $M_\alpha = \ket{\alpha}\bra{\alpha}$ for $\alpha \in \{0, 1\}^2$}
         we see that each of the states can be measured with probability $\frac{1}{4}$ as expected.
-        \end{example}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Entanglement}
-        One of the most important yet obscure term in quantum meachanics is the term entanglement.
-        Consider two quantum systems, with states spaces $V, W$. Then the composite space is the space: $V \otimes W$.
-        We say that the system is in an entangled state $\ket{\beta}$ if there are no $\ket{\psi} \in V$, $\ket{\psi'} \in W$
-        such that $\ket{\beta} = \ket{\psi} \otimes \ket{\psi'}$. 
-        Actually, it turns out most of the computational power in Quantum computing comes from entangled states.
-        To see this, note that for a $n$ Qubit system, non entangled states can be written as:
-        \begin{equation}
-            \bigotimes_{i =1}^n (a_i \ket{0} + b_i \ket{1}) = (a_1 \ket{0} + b_1 \ket{1}) \otimes \dots \otimes (a_n \ket{0} + b_n \ket{1})
-        \end{equation}
-        And so they are described by $n$ independent amplitudes. Instead a general state of the systems is of the form:
-        \begin{equation}
-            \sum_{\alpha \in \{0,1\}^n} a_\alpha \ket{\alpha} =  a_1 \ket{00\dots0} + a_2 \ket{00\dots1} + \dots + a_n \ket{11\dots1}
-        \end{equation}
-        Which has $2^n$ independent amplitudes.
-    \end{frame}
-    \begin{frame}
-        \frametitle{Entanglement}
-        \begin{example}
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Entanglement}
+    One of the most important yet obscure term in quantum mechanics is the term entanglement.
+    Consider two quantum systems, with states spaces $V, W$. Then the composite space is the space: $V \otimes W$.
+    We say that the system is in an entangled state $\ket{\beta}$ if there are no $\ket{\psi} \in V$, $\ket{\psi'} \in W$
+    such that $\ket{\beta} = \ket{\psi} \otimes \ket{\psi'}$.
+    Actually, it turns out most of the computational power in Quantum computing comes from entangled states.
+    To see this, note that for a $n$ Qubit system, non entangled states can be written as:
+    \begin{equation}
+        \bigotimes_{i =1}^n (a_i \ket{0} + b_i \ket{1}) = (a_1 \ket{0} + b_1 \ket{1}) \otimes \dots \otimes (a_n \ket{0} + b_n \ket{1})
+    \end{equation}
+    And so they are described by $n$ independent amplitudes. Instead a general state of the systems is of the form:
+    \begin{equation}
+        \sum_{\alpha \in \{0,1\}^n} a_\alpha \ket{\alpha} =  a_1 \ket{00\dots0} + a_2 \ket{00\dots1} + \dots + a_n \ket{11\dots1}
+    \end{equation}
+    Which has $2^n$ independent amplitudes.
+\end{frame}
+\begin{frame}
+    \frametitle{Entanglement}
+    \begin{example}
         Consider a two qubit system. Then some simple algebra shows that the following are entangled.
         \begin{align}
             \label{Bell states}
-            \ket{\beta_{00}} &= \frac{\ket{00} + \ket{11}}{\sqrt{2}} \\
-            \ket{\beta_{01}} &= \frac{\ket{00} - \ket{11}}{\sqrt{2}} \\
-            \ket{\beta_{10}} &= \frac{\ket{10} + \ket{01}}{\sqrt{2}} \\
-            \ket{\beta_{11}} &= \frac{\ket{01} - \ket{10}}{\sqrt{2}} 
+            \ket{\beta_{00}} & = \frac{\ket{00} + \ket{11}}{\sqrt{2}} \\
+            \ket{\beta_{01}} & = \frac{\ket{00} - \ket{11}}{\sqrt{2}} \\
+            \ket{\beta_{10}} & = \frac{\ket{10} + \ket{01}}{\sqrt{2}} \\
+            \ket{\beta_{11}} & = \frac{\ket{01} - \ket{10}}{\sqrt{2}}
         \end{align}
-        In particular, these are called the Bell States, and form a basis for the two qubit space. 
+        In particular, these are called the Bell States, and form a basis for the two qubit space.
         Note how for $\ket{\beta_{00}}$ a 0-measurement in the first basis i.e. $\ket{0}\bra{0} \otimes I$
         modifies the composite state to $\ket{00}$.
-        \end{example}
-    \end{frame}
-    \section{Computer Science}
-    \subsection{Reversible circuits}
-    \begin{frame}
-        \frametitle{Model of Computation}
-        In order to leverage Quantum for our computation, we aim to define a model of computation 
-        that can be used consistently with our postulates. In classical computing some common models are:
-        \begin{itemize}
-            \item Turing Machine
-            \item Circuits
-            \item Minsky Register
-            \item Petri Nets
-        \end{itemize}
-        \begin{definition}
-            \textbf{Complexity-Theoric Church-Turing Thesis} 
-            A probabilistic Turing machine can efficiently simulate any realistic model of computation.
-        \end{definition}
-        \begin{definition}
-            \textbf{Quantum Complexity-Theoric Church-Turing Thesis} 
-            A quantum Turing machine can efficiently simulate any realistic model of computation.
-        \end{definition}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Reversible Quantum Circuit}
-        The most common model for quantum computation is that of reversible circuits.
-        It is motivated by the fact that the laws of Physics are time reversible, and that
-        erasing information costs energy.
-        \begin{definition}
-            \textbf{Landauer's Principle}: Suppose a computer erases a single bit of information.
-            The amount of energy dissipated in the environment is at least $k_B T \ln 2$ where 
-            $T$ is the temperature of the environment, and $k_B$ is Boltzmann's constant
-        \end{definition}
-    \end{frame}
-    \begin{frame}
-        \frametitle{Reversible Circuits}
-        Reversible circuits are also a classical computation device. Each reversible gate
-        is characterized by the fact that each input configuration uniquely corresponds to an output.
-        For example, \texttt{NOT} is reversible as $0 \to 1$ and $1 \to 0$. Instead \texttt{AND} is 
-        not reversible, as $0$ is the output of $00, 01, 10$.
-        We will denote the \texttt{NOT} gate as $X$, as in \ref{Pauli}.\\
-        \begin{example}
-            Here is an example of how the $X$ gate operates. Since we are operating classically
-            so far $\ket{\psi}$ are simply either of $\ket{0},\ket{1}$, but we will see that 
-            for arbitrary $\ket{\psi} = a \ket{0} +  b \ket{1} $ the quantum $X$ applies the unitary matrix $X$ as expected,
-            resulting in $X \ket{\psi} = b \ket{0} +  a \ket{1} $.
-            \begin{center}
-                \begin{quantikz}
+    \end{example}
+\end{frame}
+\section{Computer Science}
+\subsection{Reversible circuits}
+\begin{frame}
+    \frametitle{Model of Computation}
+    In order to leverage Quantum for our computation, we aim to define a model of computation
+    that can be used consistently with our postulates. In classical computing some common models are:
+    \begin{itemize}
+        \item Turing Machine
+        \item Circuits
+        \item Minsky Register
+        \item Petri Nets
+    \end{itemize}
+    \begin{definition}
+        \textbf{Complexity-Theoretic Church-Turing Thesis}
+        A probabilistic Turing machine can efficiently simulate any realistic model of computation.
+    \end{definition}
+    \begin{definition}
+        \textbf{Quantum Complexity-Theoretic Church-Turing Thesis}
+        A quantum Turing machine can efficiently simulate any realistic model of computation.
+    \end{definition}
+\end{frame}
+\begin{frame}
+    \frametitle{Reversible Quantum Circuit}
+    The most common model for quantum computation is that of reversible circuits.
+    It is motivated by the fact that the laws of Physics are time reversible, and that
+    erasing information costs energy.
+    \begin{definition}
+        \textbf{Landauer's Principle}: Suppose a computer erases a single bit of information.
+        The amount of energy dissipated in the environment is at least $k_B T \ln 2$ where
+        $T$ is the temperature of the environment, and $k_B$ is Boltzmann's constant
+    \end{definition}
+\end{frame}
+\begin{frame}
+    \frametitle{Reversible Circuits}
+    Reversible circuits are also a classical computation device. Each reversible gate
+    is characterized by the fact that each input configuration uniquely corresponds to an output.
+    For example, \texttt{NOT} is reversible as $0 \to 1$ and $1 \to 0$. Instead \texttt{AND} is
+    not reversible, as $0$ is the output of $00, 01, 10$.
+    We will denote the \texttt{NOT} gate as $X$, as in \ref{Pauli}.\\
+    \begin{example}
+        Here is an example of how the $X$ gate operates. Since we are operating classically
+        so far $\ket{\psi}$ are simply either of $\ket{0},\ket{1}$, but we will see that
+        for arbitrary $\ket{\psi} = a \ket{0} +  b \ket{1} $ the quantum $X$ applies the unitary matrix $X$ as expected,
+        resulting in $X \ket{\psi} = b \ket{0} +  a \ket{1} $.
+        \begin{center}
+            \begin{quantikz}
                 \lstick{$\ket{\psi}$} & \gate{X} & \rstick{$X \ket{\psi}$} \qw
-                \end{quantikz}
-             \end{center}
-        \end{example}
-        \end{frame}
-        \begin{frame}
-            \frametitle{Friedkin Gate}
-            \begin{example}
-                Here is an example of reversible gate, the Toffoli gate. 
-                \begin{center}
-                    \begin{quantikz}
-                        \lstick{$a$} & \ctrl{2} & \rstick{$a$}\qw \\
-                        \lstick{$b$} & \ctrl{1} & \rstick{$b$}\qw \\
-                        \lstick{$c$} & \targ{} & \rstick{$c \oplus a b$}\qw \\
-                    \end{quantikz}
-                \end{center}
-                It is important as it is universal, as in every classical circuit can be simulated using
-                this circuit
-                \footnote{Set $c = 1$, then the output of the gate is $\lnot (ab)$. Since \texttt{NAND} is universal, the result follows}.
-                 In a nutshell, it use $a, b$ as control bits, and if both are set then 
-                it flips the target bit $c$. It is also easy to see that the $8\times 8$ matrix corresponding
-                to the Toffoli is Unitary.
-            \end{example}
-        \end{frame}
-        \begin{frame}
-            \frametitle{Controlled Operations}
-            A really interesting kind of operation are the controlled operation. These are operations 
-            on multiple bit such that the first bit is used as a control. If it is not set nothing happens.
-            Else some operation is applied. For any Unitary $U$ we define the controlled-$U$ operation as:
-            \begin{center}
+            \end{quantikz}
+        \end{center}
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Friedkin Gate}
+    \begin{example}
+        Here is an example of reversible gate, the Toffoli gate.
+        \begin{center}
+            \begin{quantikz}
+                \lstick{$a$} & \ctrl{2} & \rstick{$a$}\qw \\
+                \lstick{$b$} & \ctrl{1} & \rstick{$b$}\qw \\
+                \lstick{$c$} & \targ{} & \rstick{$c \oplus a b$}\qw \\
+            \end{quantikz}
+        \end{center}
+        It is important as it is universal, as in every classical circuit can be simulated using
+        this circuit
+        \footnote{Set $c = 1$, then the output of the gate is $\lnot (ab)$. Since \texttt{NAND} is universal, the result follows}.
+        In a nutshell, it use $a, b$ as control bits, and if both are set then
+        it flips the target bit $c$. It is also easy to see that the $8\times 8$ matrix corresponding
+        to the Toffoli is Unitary.
+    \end{example}
+\end{frame}
+\begin{frame}
+    \frametitle{Controlled Operations}
+    A really interesting kind of operation are the controlled operation. These are operations
+    on multiple bit such that the first bit is used as a control. If it is not set nothing happens.
+    Else some operation is applied. For any Unitary $U$ we define the controlled-$U$ operation as:
+    \begin{center}
+        \begin{quantikz}
+            & \ctrl{1} & \qw \\
+            & \gate{U} \qwbundle[alternate]{}  &  \qwbundle[alternate]{} \\
+        \end{quantikz}
+    \end{center}
+    In matrix form, this corresponds to:
+    \begin{align}
+        \begin{pmatrix}
+            1      & \dots  & 0 \\
+            \vdots & \ddots & 0 \\
+            0      & \dots  & U
+        \end{pmatrix}
+    \end{align}
+    So the matrix with $1$'s on half of the diagonal, zeros every else and $U$ in the bottom quarter.
+\end{frame}
+\begin{frame}
+    \frametitle{CNOT}
+    \begin{example}
+        The CNOT gate is just a controlled-$X$ operation, yet it is so important that we have an alternative notation for it.
+        \begin{center}
             \begin{quantikz}
                 & \ctrl{1} & \qw \\
-                & \gate{U} \qwbundle[alternate]{}  &  \qwbundle[alternate]{} \\
+                & \targ{}  &  \qw \\
             \end{quantikz}
-            \end{center}
-            In matrix form, this corresponds to:
-            \begin{align}
-                \begin{pmatrix}
-                    1 & \dots & 0 \\
-                    \vdots & \ddots & 0 \\
-                    0 & \dots & U
-                \end{pmatrix}
-            \end{align}
-            So the matrix with $1$'s on half of the diagonal, zeros every else and $U$ in the bottom quarter.
-        \end{frame}
-        \begin{frame}
-            \frametitle{CNOT}
-            \begin{example}
-                The CNOT gate is just a controlled-$X$ operation, yet it is so important that we have an alternative notation for it.
-                \begin{center}
-                    \begin{quantikz}
-                        & \ctrl{1} & \qw \\
-                        & \targ{}  &  \qw \\
-                    \end{quantikz}
-                \end{center}
-            In matrix form, it is represented by:
-            \begin{align}
-                \begin{pmatrix}
-                    1 & 0 & 0 & 0 \\
-                    0 & 1 & 0 & 0 \\
-                    0 & 0 & 0 & 1 \\
-                    0 & 0 & 1 & 0 
-                \end{pmatrix}
-            \end{align}
-            Note how Toffoli is just a CNOT with two control bits, and as such it is sometimes called CCNOT.
-            \end{example}
-        \end{frame}
-        \subsection{Quantum Gates}
-        \begin{frame}
-            \frametitle{Quantum Gates}
-            For now we have just used gates that are classical, in the sense that they transform "bits"
-            $\ket{0}, \ket{1}$ into other bits of the same kind. Our aim would be to simulate arbitrary
-            Unitary transformations. Turns out that CNOT, and single qubit Unitary operations are all we need
-            to compute arbitrary Unitary operations. Furthermore, we can use the Hadamard,
-            the phase, the $\pi/8$ \footnote{Next slide} and the CNOT gates to compute any Unitary operation to an arbitrary accuracy. \\
-        \end{frame}
-        \begin{frame}
-            \frametitle{Quantum Gates}
-            \begin{center}
-                \text{Hadamard } \qquad 
-                \begin{quantikz}
-                    & \gate{H} &  \qw \\
-                \end{quantikz} \qquad  $\frac{1}{\sqrt{2}} \begin{pmatrix}
-                    1 & 1 \\
-                    1 & -1 
-                \end{pmatrix}$ \\
+        \end{center}
+        In matrix form, it is represented by:
+        \begin{align}
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 0 & 1 & 0
+            \end{pmatrix}
+        \end{align}
+        Note how Toffoli is just a CNOT with two control bits, and as such it is sometimes called CCNOT.
+    \end{example}
+\end{frame}
+\subsection{Quantum Gates}
+\begin{frame}
+    \frametitle{Quantum Gates}
+    For now we have just used gates that are classical, in the sense that they transform "bits"
+    $\ket{0}, \ket{1}$ into other bits of the same kind. Our aim would be to simulate arbitrary
+    Unitary transformations. Turns out that CNOT, and single qubit Unitary operations are all we need
+    to compute arbitrary Unitary operations. Furthermore, we can use the Hadamard,
+    the phase, the $\pi/8$ \footnote{Next slide} and the CNOT gates to compute any Unitary operation to an arbitrary accuracy. \\
+\end{frame}
+\begin{frame}
+    \frametitle{Quantum Gates}
+    \begin{center}
+        \text{Hadamard } \qquad
+        \begin{quantikz}
+            & \gate{H} &  \qw \\
+        \end{quantikz} \qquad  $\frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 & 1  \\
+                1 & -1
+            \end{pmatrix}$ \\
 
-                \text{Pauli-}$X$ \qquad 
-                \begin{quantikz}
-                    & \gate{X} &  \qw \\
-                \end{quantikz} \qquad  $\begin{pmatrix}
-                    0 & 1 \\
-                    1 & 0 
-                \end{pmatrix}$ \\
+        \text{Pauli-}$X$ \qquad
+        \begin{quantikz}
+            & \gate{X} &  \qw \\
+        \end{quantikz} \qquad  $\begin{pmatrix}
+                0 & 1 \\
+                1 & 0
+            \end{pmatrix}$ \\
 
-                \text{Pauli-}$Y$ \qquad 
-                \begin{quantikz}
-                    & \gate{Y} &  \qw \\
-                \end{quantikz} \qquad  $\begin{pmatrix}
-                    0 & -i \\
-                    i & 0 
-                \end{pmatrix}$ \\
+        \text{Pauli-}$Y$ \qquad
+        \begin{quantikz}
+            & \gate{Y} &  \qw \\
+        \end{quantikz} \qquad  $\begin{pmatrix}
+                0 & -i \\
+                i & 0
+            \end{pmatrix}$ \\
 
-                \text{Pauli-}$Z$ \qquad 
-                \begin{quantikz}
-                    & \gate{Z} &  \qw \\
-                \end{quantikz} \qquad  $\begin{pmatrix}
-                    1 & 0 \\
-                    0 & -1 
-                \end{pmatrix}$ \\
-                \text{Phase} \qquad 
-                \begin{quantikz}
-                    & \gate{S} &  \qw \\
-                \end{quantikz} \qquad  $\begin{pmatrix}
-                    1 & 0 \\
-                    0 & i 
-                \end{pmatrix}$ \\
-                $\pi/8$ \qquad 
-                \begin{quantikz}
-                    & \gate{T} &  \qw \\
-                \end{quantikz} \qquad  $\begin{pmatrix}
-                    1 & 0 \\
-                    0 & e^{i\pi/4} 
-                \end{pmatrix}$ \\
-            \end{center}
-        \end{frame}
-        \subsection{Algorithms}
-        \begin{frame}
-            \frametitle{Quantum Speedups}
-            We are interested in finding ways to solve some problems more easily then 
-            with classical methods. As we know, here we have some problems that we think
-            are solvable more efficiently on quantum computers (with caveats). 
-            \begin{itemize}
-                \item Deutsch–Jozsa algorithm $2^{n-1}$ calls  to $1$
-                \item Quantum Fourier Transform $O(n2^n) \to O(n^2)$
-                \item Shor's algorithm $O(\exp(1.9 (\log N)^{1/3})(\log \log N)^{2/3})\to O((\log N)^3)$
-                \item Grover's quantum search, $O(n) \to O(\sqrt{n})$
-                \item Superdense coding, send $2$ classical bits using only a single qubit
-                \item Hidden subgroup problems
-            \end{itemize}
-            We show quantum circuits for the first two. Also, we stress that 
-            we have no efficient Quantum algorithm for $\mathcal{NP}$-complete problems. 
-            As such, we believe (no proof) that $\mathcal{P} \subseteq \mathcal{BPP} \subseteq \mathcal{BQP} \subseteq \mathcal{NP}$ \footnote{
-                Actually, a recent paper (https://www.quantum-bits.org/?p=2309) seem to suggest that $\mathcal{BQP} / \mathcal{NP} \neq \emptyset $
-            }
-        
-        \end{frame}
-        \begin{frame}
-            \frametitle{Deutsch-Jozsa}
-            Consider a function $f: \{0,1\}^n \to \{0, 1\}$ that is either constant or balanced.
-            By balanced we mean that $\sum_s f(s) = 2^{n - 1}$. With how many calls can we determine 
-            which kind of function is $f$? The classical approach takes at most $2^{n-1} + 1$ applications.
-            In the quantum world, we show an algorithm that, given a black box $U_f$ that can compute the Unitary
-            $(x, y) \to (x, y \oplus f(x))$, can determine the kind of the function with a single call.
-            \begin{center}
-                \begin{quantikz}
-                    \lstick{$\ket{0}$} & \gate{H^{\otimes n}} \qwbundle{n}  & \gate[wires=2]{U_f} & \gate{H^{\otimes n}} & \meter{} \\
-                    \lstick{$\ket{1}$} & \gate{H}                           & \qw & \qw                  & \qw \\
-                \end{quantikz}
-            \end{center}
-            
-        \end{frame}
-        \begin{frame}
-            \frametitle{Deutsch-Jozsa}
-            The original input state is $\ket{\psi_0} = \ket{0}^{\otimes n}\ket{1}$.
-            This gets transformed to:
-            \begin{equation}
-                \ket{\psi_1} = \sum_{x \in \{0,1\}^n}\frac{\ket{x}}{\sqrt{2^n}}\left(\frac{\ket{0} -\ket{1}}{\sqrt{2}} \right)
-            \end{equation}
-            And applying $U_f: \ket{x,y} \to \ket{x, y \oplus f(x)}$ gets us:
-            \begin{equation}
-                \ket{\psi_2} = \sum_x \frac{(-1)^{f(x)} \ket{x}}{\sqrt{2^n}}\left(\frac{\ket{0} -\ket{1}}{\sqrt{2}} \right)
-            \end{equation}
-            Finally, evaluating the last Hadamard gates yields:
-            \begin{equation}
-                \ket{\psi_3} = \sum_z \sum_x \frac{(-1)^{x\cdot z + f(x)}\ket{z}}{2^n}\left(\frac{\ket{0} -\ket{1}}{\sqrt{2}} \right)
-            \end{equation}
-            Now, the amplitude of $\ket{0}^{\otimes n}$ is $\sum_x (-1)^{f(x)}/2^n$. So if $f$ is constant
-            it is $\pm 1$. Otherwise it will be balanced and so equal $0$. 
-        \end{frame}
-        \begin{frame}
-            \frametitle{Quantum Fourier Transform}
-            The Discrete Fourier Transform is an operation that has many applications in a variety of problems.
-            Classically\footnote{Good visual intro https://www.youtube.com/watch?v=spUNpyF58BY}, it transforms a set of numbers $x_0, \dots, x_{N-1}$ into:
-            \begin{equation}
-                y_k \equiv \frac{1}{\sqrt{N}} \sum_{j=0}^{N - 1} e^{2\pi i j k / N} x_j
-            \end{equation}
-            The Quantum Fourier Transform is a linear transformation that,
-            for orthornormal basis $\ket{0}, \dots, \ket{N -1}$, computes:
-            \begin{equation}
-                \ket{j} \to \frac{1}{\sqrt{N}} \sum_{k=0}^{N - 1} e^{2\pi i j k / N} \ket{k}
-            \end{equation}
-            The connection with the classical is that:
-            \begin{equation}
-                \sum_{k=0}^{N - 1} x_k \ket{k} \to  \sum_{k=0}^{N - 1} y_k \ket{k}
-            \end{equation}
-        \end{frame}
-        \begin{frame}
-            \frametitle{Quantum Fourier Transform}
-            Let us set $N \equiv 2^n$. Then, the best classical algorithm to perform the 
-            Discrete Fourier Transform uses $\Theta(n2^n) = \Theta(N \log N)$ operations.
-            In constrast, we can show a quantum algorithm that uses only $\Theta(n^2)$ gates
-            to compute the Quantum Fourier Transform transformation.
-            The algorithm uses the fact\footnote{Which is supposed to be elementary smh}
-            that the transformation can be written as:
-            \begin{equation}
-                \ket{j_1, \dots, j_n} \to
-                \frac{(\ket{0} + e^{2\pi i 0.j_n}\ket{1}) \dots (\ket{0} + e^{2\pi i 0.j_1 j_2 \dots j_n}\ket{1})}{2^{n/2}}
-            \end{equation}
-            Where $0.j_l \dots j_m \equiv \sum_{i=l}^{m} \frac{j_i}{2^i}$. \\
-            A note is in order: while we have a fast algorithm for the Quantum Fourier Transform, this does 
-            not give us a fast algorithm for the Discrete version. In order to achieve this speedup we need 
-            to incorporate the QFT as a routine, which is what Shor's algorithm does in its order finding routine.
-        \end{frame}
-        \begin{frame}
-            \frametitle{Quantum Fourier Transform}
-            Let 
-            \begin{equation}
-                R_k \equiv \begin{pmatrix}
-                    1 & 0 \\
-                    0 & e^{2 \pi i / 2^k}
-                \end{pmatrix}
-            \end{equation}
-            The following circuit computes QFT.
-            \begin{center}
-             \begin{quantikz}
-                \lstick{$\ket{j_1}$} & \gate{H} & \gate{R_2} & \dots  & \gate{R_n} & \qw      & \qw   & \qw            & \qw   & \qw \\
-                \lstick{$\ket{j_2}$} & \qw      & \ctrl{-1}  & \dots  & \qw        & \gate{H} & \dots & \gate{R_{n-1}} & \qw   & \qw \\
-                                     & \vdots   &            &        &            &          &       &                &       & \\
-                \lstick{$\ket{j_n}$} & \qw      & \qw        & \qw    & \ctrl{-3}  & \qw      & \qw   & \ctrl{-2}      & \dots & \gate{H}\\
+        \text{Pauli-}$Z$ \qquad
+        \begin{quantikz}
+            & \gate{Z} &  \qw \\
+        \end{quantikz} \qquad  $\begin{pmatrix}
+                1 & 0  \\
+                0 & -1
+            \end{pmatrix}$ \\
+        \text{Phase} \qquad
+        \begin{quantikz}
+            & \gate{S} &  \qw \\
+        \end{quantikz} \qquad  $\begin{pmatrix}
+                1 & 0 \\
+                0 & i
+            \end{pmatrix}$ \\
+        $\pi/8$ \qquad
+        \begin{quantikz}
+            & \gate{T} &  \qw \\
+        \end{quantikz} \qquad  $\begin{pmatrix}
+                1 & 0          \\
+                0 & e^{i\pi/4}
+            \end{pmatrix}$ \\
+    \end{center}
+\end{frame}
+\subsection{Algorithms}
+\begin{frame}
+    \frametitle{Quantum Speedups}
+    We are interested in finding ways to solve some problems more easily then
+    with classical methods. As we know, here we have some problems that we think
+    are solvable more efficiently on quantum computers (with caveats).
+    \begin{itemize}
+        \item Deutsch–Jozsa algorithm $2^{n-1}$ calls  to $1$
+        \item Quantum Fourier Transform $O(n2^n) \to O(n^2)$
+        \item Shor's algorithm $O(\exp(1.9 (\log N)^{1/3})(\log \log N)^{2/3})\to O((\log N)^3)$
+        \item Grover's quantum search, $O(n) \to O(\sqrt{n})$
+        \item Superdense coding, send $2$ classical bits using only a single qubit
+        \item Hidden subgroup problems
+    \end{itemize}
+    We show quantum circuits for the first two. Also, we stress that
+    we have no efficient Quantum algorithm for $\mathcal{NP}$-complete problems.
+    As such, we believe (no proof) that $\mathcal{P} \subseteq \mathcal{BPP} \subseteq \mathcal{BQP} \subseteq \mathcal{NP}$ \footnote{
+        Actually, a recent paper (https://www.quantum-bits.org/?p=2309) seem to suggest that $\mathcal{BQP} / \mathcal{NP} \neq \emptyset $
+    }
+
+\end{frame}
+\begin{frame}
+    \frametitle{Deutsch-Jozsa}
+    Consider a function $f: \{0,1\}^n \to \{0, 1\}$ that is either constant or balanced.
+    By balanced we mean that $\sum_s f(s) = 2^{n - 1}$. With how many calls can we determine
+    which kind of function is $f$? The classical approach takes at most $2^{n-1} + 1$ applications.
+    In the quantum world, we show an algorithm that, given a black box $U_f$ that can compute the Unitary
+    $(x, y) \to (x, y \oplus f(x))$, can determine the kind of the function with a single call.
+    \begin{center}
+        \begin{quantikz}
+            \lstick{$\ket{0}$} & \gate{H^{\otimes n}} \qwbundle{n}  & \gate[wires=2]{U_f} & \gate{H^{\otimes n}} & \meter{} \\
+            \lstick{$\ket{1}$} & \gate{H}                           & \qw & \qw                  & \qw \\
+        \end{quantikz}
+    \end{center}
+
+\end{frame}
+\begin{frame}
+    \frametitle{Deutsch-Jozsa}
+    The original input state is $\ket{\psi_0} = \ket{0}^{\otimes n}\ket{1}$.
+    This gets transformed to:
+    \begin{equation}
+        \ket{\psi_1} = \sum_{x \in \{0,1\}^n}\frac{\ket{x}}{\sqrt{2^n}}\left(\frac{\ket{0} -\ket{1}}{\sqrt{2}} \right)
+    \end{equation}
+    And applying $U_f: \ket{x,y} \to \ket{x, y \oplus f(x)}$ gets us:
+    \begin{equation}
+        \ket{\psi_2} = \sum_x \frac{(-1)^{f(x)} \ket{x}}{\sqrt{2^n}}\left(\frac{\ket{0} -\ket{1}}{\sqrt{2}} \right)
+    \end{equation}
+    Finally, evaluating the last Hadamard gates yields:
+    \begin{equation}
+        \ket{\psi_3} = \sum_z \sum_x \frac{(-1)^{x\cdot z + f(x)}\ket{z}}{2^n}\left(\frac{\ket{0} -\ket{1}}{\sqrt{2}} \right)
+    \end{equation}
+    Now, the amplitude of $\ket{0}^{\otimes n}$ is $\sum_x (-1)^{f(x)}/2^n$. So if $f$ is constant
+    it is $\pm 1$. Otherwise it will be balanced and so equal $0$.
+\end{frame}
+\begin{frame}
+    \frametitle{Quantum Fourier Transform}
+    The Discrete Fourier Transform is an operation that has many applications in a variety of problems.
+    Classically\footnote{Good visual intro https://www.youtube.com/watch?v=spUNpyF58BY}, it transforms a set of numbers $x_0, \dots, x_{N-1}$ into:
+    \begin{equation}
+        y_k \equiv \frac{1}{\sqrt{N}} \sum_{j=0}^{N - 1} e^{2\pi i j k / N} x_j
+    \end{equation}
+    The Quantum Fourier Transform is a linear transformation that,
+    for orthonormal basis $\ket{0}, \dots, \ket{N -1}$, computes:
+    \begin{equation}
+        \ket{j} \to \frac{1}{\sqrt{N}} \sum_{k=0}^{N - 1} e^{2\pi i j k / N} \ket{k}
+    \end{equation}
+    The connection with the classical is that:
+    \begin{equation}
+        \sum_{k=0}^{N - 1} x_k \ket{k} \to  \sum_{k=0}^{N - 1} y_k \ket{k}
+    \end{equation}
+\end{frame}
+\begin{frame}
+    \frametitle{Quantum Fourier Transform}
+    Let us set $N \equiv 2^n$. Then, the best classical algorithm to perform the
+    Discrete Fourier Transform uses $\Theta(n2^n) = \Theta(N \log N)$ operations.
+    In constrast, we can show a quantum algorithm that uses only $\Theta(n^2)$ gates
+    to compute the Quantum Fourier Transform transformation.
+    The algorithm uses the fact\footnote{Which is supposed to be elementary smh}
+    that the transformation can be written as:
+    \begin{equation}
+        \ket{j_1, \dots, j_n} \to
+        \frac{(\ket{0} + e^{2\pi i 0.j_n}\ket{1}) \dots (\ket{0} + e^{2\pi i 0.j_1 j_2 \dots j_n}\ket{1})}{2^{n/2}}
+    \end{equation}
+    Where $0.j_l \dots j_m \equiv \sum_{i=l}^{m} \frac{j_i}{2^i}$. \\
+    A note is in order: while we have a fast algorithm for the Quantum Fourier Transform, this does
+    not give us a fast algorithm for the Discrete version. In order to achieve this speedup we need
+    to incorporate the QFT as a routine, which is what Shor's algorithm does in its order finding routine.
+\end{frame}
+\begin{frame}
+    \frametitle{Quantum Fourier Transform}
+    Let
+    \begin{equation}
+        R_k \equiv \begin{pmatrix}
+            1 & 0                 \\
+            0 & e^{2 \pi i / 2^k}
+        \end{pmatrix}
+    \end{equation}
+    The following circuit computes QFT.
+    \begin{center}
+        \begin{quantikz}
+            \lstick{$\ket{j_1}$} & \gate{H} & \gate{R_2} & \dots  & \gate{R_n} & \qw      & \qw   & \qw            & \qw   & \qw \\
+            \lstick{$\ket{j_2}$} & \qw      & \ctrl{-1}  & \dots  & \qw        & \gate{H} & \dots & \gate{R_{n-1}} & \qw   & \qw \\
+            & \vdots   &            &        &            &          &       &                &       & \\
+            \lstick{$\ket{j_n}$} & \qw      & \qw        & \qw    & \ctrl{-3}  & \qw      & \qw   & \ctrl{-2}      & \dots & \gate{H}\\
+        \end{quantikz}
+    \end{center}
+\end{frame}
+\begin{frame}
+    \frametitle{QFT}
+    \begin{example}
+        In the case $N = 4 = 2^2$, we get that $F\ket{j} = \frac{1}{2}\sum_{i = 0}^3 e^{\pi i j k / 2}\ket{k}$
+        Alternatively:
+        \begin{equation}
+            \ket{j_1, j_2} \to \frac{(\ket{0} + e^{\pi i j_2}\ket{1})(\ket{0} + e^{\pi i \left(j_1 + j_2/2\right)}\ket{1})}{2}
+        \end{equation}
+        The corresponding circuit is:
+        \begin{center}
+            \begin{quantikz}
+                \lstick{$\ket{j_1}$} & \gate{H} & \gate{R_2} & \qw      & \qw & \rstick{$\frac{1}{\sqrt{2}}(\ket{0} + e^{\pi i \left(j_1 + j_2/2\right)}\ket{1})$}   \\
+                \lstick{$\ket{j_2}$} & \qw      & \ctrl{-1}  & \gate{H} & \qw & \rstick{$\frac{1}{\sqrt{2}}(\ket{0} + e^{\pi i j_2}\ket{1})$} \\
             \end{quantikz}
-            \end{center}
-        \end{frame}
-        \begin{frame}
-            \frametitle{QFT}
-        \begin{example}
-            In the case $N = 4 = 2^2$, we get that $F\ket{j} = \frac{1}{2}\sum_{i = 0}^3 e^{\pi i j k / 2}\ket{k}$
-            Alternatively: 
-            \begin{equation}
-                \ket{j_1, j_2} \to \frac{(\ket{0} + e^{\pi i j_2}\ket{1})(\ket{0} + e^{\pi i \left(j_1 + j_2/2\right)}\ket{1})}{2}
-            \end{equation}
-            The corresponding circuit is:
-            \begin{center}
-                \begin{quantikz}
-                   \lstick{$\ket{j_1}$} & \gate{H} & \gate{R_2} & \qw      & \qw & \rstick{$\frac{1}{\sqrt{2}}(\ket{0} + e^{\pi i \left(j_1 + j_2/2\right)}\ket{1})$}   \\
-                   \lstick{$\ket{j_2}$} & \qw      & \ctrl{-1}  & \gate{H} & \qw & \rstick{$\frac{1}{\sqrt{2}}(\ket{0} + e^{\pi i j_2}\ket{1})$} \\
-               \end{quantikz}
-               \end{center}
-            And swapping the last two completes the operation.
-        \end{example}
-        \end{frame}
-        \section{Future}
-        \begin{frame}
-            \frametitle{What's next}
-            We don't really know!
-            \begin{itemize}
-                \item Physical realization
-                \item Noise
-                \item Quantum information
-                \item Quantum cryptography
-                \item Graph isomorphism?\footnote{Might be solved, paper is 2019 but not published yet afaik https://arxiv.org/abs/1901.06530}
-            \end{itemize}
-        \end{frame}
-        \begin{frame}
-            \frametitle{Learning}
-            \begin{itemize}
-                \item Linear Algebra: \begin{itemize}
-                    \item 3Blue1Brown, Essence of Linear Algebra
-                    \item Linear Algebra Done Right. Sheldon Axler
-                    \item Linear Algebra and Its Applications, David C. Lay
-                \end{itemize}
-                \item Physics: \begin{itemize}
-                    \item  The Feynman Lectures on Physics 
-                    \item Minute Physics I guess?
-                \end{itemize}
-                \item Quantum Computing: \begin{itemize}
-                    \item Quantum Computation and Quantum Information, Isaac Chuang and Michael Nielsen
-                    \item Brilliant
-                    \item Q\# Quantum Programming Language
-                \end{itemize}
-            \end{itemize}
-        \end{frame}
-    
+        \end{center}
+        And swapping the last two completes the operation.
+    \end{example}
+\end{frame}
+\section{Future}
+\begin{frame}
+    \frametitle{What's next}
+    We don't really know!
+    \begin{itemize}
+        \item Physical realization
+        \item Noise
+        \item Quantum information
+        \item Quantum cryptography
+        \item Graph isomorphism?\footnote{Might be solved, paper is 2019 but not published yet afaik https://arxiv.org/abs/1901.06530}
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Learning}
+    \begin{itemize}
+        \item Linear Algebra: \begin{itemize}
+                  \item 3Blue1Brown, Essence of Linear Algebra
+                  \item Linear Algebra Done Right. Sheldon Axler
+                  \item Linear Algebra and Its Applications, David C. Lay
+              \end{itemize}
+        \item Physics: \begin{itemize}
+                  \item  The Feynman Lectures on Physics
+                  \item Minute Physics I guess?
+              \end{itemize}
+        \item Quantum Computing: \begin{itemize}
+                  \item Quantum Computation and Quantum Information, Isaac Chuang and Michael Nielsen
+                  \item Brilliant
+                  \item Q\# Quantum Programming Language
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
 \end{document}
